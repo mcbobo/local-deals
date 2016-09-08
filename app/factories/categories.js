@@ -1,9 +1,6 @@
-app.factory('CategoriesService', function($http, $log) {
+app.factory('CategoriesService', function() {
   return {
     getRootCategories: function() {
-      //$http.get("http://somedomain.com/someAPIEndpoint")
-      //  .then(function(data){ doSomethingWithData(data) })
-
       return new Promise(
         function(resolve, reject) {
           mockRootCategoriesCall()

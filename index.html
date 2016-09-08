@@ -2,22 +2,20 @@
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="angular-animate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.5.8/angular-touch.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.3/ui-bootstrap-tpls.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.3/ui-bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="app/app.css"/>
   </head>
-  <body ng-app="localDealsApp">
+  <body ng-app="localDealsApp" ng-controller="SearchController">
     <h1>Find Local Deals!</h1>
 
-    <form ng-controller="SearchController">
+    <form>
       <div class="input-group">
         <input class="form-control" />
         <div class="input-group-btn" uib-dropdown>
           <button
             type="button"
-            class="btn btn-default">
+            class="btn btn-default"
+            ng-click="getProducts()">
             Search</span>
           </button>
           <button
@@ -35,27 +33,53 @@
             class="dropdown-menu dropdown-menu-right"
             uib-dropdown-menu
             role="menu">
-            <li ng-repeat="category in categories">
+            <li ng-repeat="category in categories" ng-click="getProducts()">
               <a href="#">{{ category }}</a>
             </li>
           </ul>
         </div>
       </div>
     </form>
-    <script>
-      var app = angular.module('localDealsApp', ['ui.bootstrap']);
 
-      app.controller('SearchController', function ($scope, $log, CategoriesService) {
-        // Get the root categories
-        CategoriesService.getRootCategories()
-          .then(function(categories) {
-            $scope.categories = categories;
-            $log.log(categories);
-          });
-      });
-    </script>
-    <!-- TODO: User bower to handle dependencies -->
+    <div class="results">
+      <!-- TODO: Use the prodcut panels component -->
+      <!-- <product-panel products="products"></product-panel> -->
+      <div class="media panel panel-default" ng-repeat="product in products">
+        <div class="media-left media-middle">
+          <a href="#">
+            <img class="media-object" ng-src="{{ product.img }}">
+          </a>
+        </div>
+        <div class="media-body media-middle">
+          <h4 class="media-heading">{{ product.title }}</h4>
+          <p>
+            Price:
+            <span class="price">{{ product.price }}</span>
+            <span class="originalPrice">{{ product.originalPrice }}</span>
+          </p>
+          <div ng-bind-html="product.description | trust"></div>
+          <a href="{{ product.source.url }}">
+            {{ product.source.name }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Libraries / Dependencies -->
+    <script src="app/lib/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.5.8/angular-touch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.3/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.3/ui-bootstrap.min.js"></script>
+
+    <!-- TODO: User bower / webpack to handle dependencies -->
+    <script src="app/app.js"></script>
+    <script src="app/filters/trustHtml.js"></script>
+    <script src="app/controllers/searchController.js"></script>
     <script src="app/factories/categories.js"></script>
+    <script src="app/factories/products.js"></script>
+
+    <!-- TODO: Use components after setting up webserver, right now has CORS errors -->
+    <!-- <script src="app/components/productPanel.js"></script> -->
     <!-- <script src="app/components/categoriesDropDown.js"></script> -->
   </body>
 </html>
