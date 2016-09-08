@@ -30,19 +30,32 @@
             All Categories <span class="caret"></span>
           </button>
 
-          <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu">
-            <li><a href="#">Some category</a></li>
-            <li><a href="#">Another category</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated Category</a></li>
+          <ul
+            id="categories-dropdown"
+            class="dropdown-menu dropdown-menu-right"
+            uib-dropdown-menu
+            role="menu">
+            <li ng-repeat="category in categories">
+              <a href="#">{{ category }}</a>
+            </li>
           </ul>
         </div>
       </div>
     </form>
     <script>
       var app = angular.module('localDealsApp', ['ui.bootstrap']);
-      app.controller('SearchController', function ($scope, $log) {
+
+      app.controller('SearchController', function ($scope, $log, CategoriesService) {
+        // Get the root categories
+        CategoriesService.getRootCategories()
+          .then(function(categories) {
+            $scope.categories = categories;
+            $log.log(categories);
+          });
       });
     </script>
+    <!-- TODO: User bower to handle dependencies -->
+    <script src="app/factories/categories.js"></script>
+    <!-- <script src="app/components/categoriesDropDown.js"></script> -->
   </body>
 </html>
