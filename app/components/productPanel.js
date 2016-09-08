@@ -1,4 +1,4 @@
-app.directive("productPanel", function($log) {
+app.directive("productPanel", function ($log) {
   return {
     restrict: "E",
     scope: {

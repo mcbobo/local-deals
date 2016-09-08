@@ -1,13 +1,13 @@
-app.factory('CategoriesService', function() {
+app.factory('CategoriesService', function ($http, $log) {
   return {
-    getRootCategories: function() {
+    getRootCategories: function () {
       return new Promise(
-        function(resolve, reject) {
-          mockRootCategoriesCall()
-            .then(function(data) {
-              resolve(data);
+        function (resolve, reject) {
+          $http.get('/api/rootcategories')
+            .then(function (data) {
+              resolve(data.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
               reject(err);
             });
         }
@@ -15,18 +15,3 @@ app.factory('CategoriesService', function() {
     }
   };
 });
-
-function mockRootCategoriesCall() {
-  return new Promise(
-    function(resolve, reject) {
-      resolve(
-        [
-          "Electronics",
-          "Clothing",
-          "Cars",
-          "Books"
-        ]
-      );
-    }
-  );
-}

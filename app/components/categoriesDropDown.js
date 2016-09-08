@@ -1,7 +1,7 @@
-app.directive("categoriesDropDown", function() {
+app.directive("categoriesDropDown", function () {
   return {
-    link: function(scope, element, attrs) {
-      scope.$watch("rootCategories", function(categories) {
+    link: function (scope, element, attrs) {
+      scope.$watch("rootCategories", function (categories) {
         angular.element(element).append("testing");
         // function createDropDownLink(link, text) {
         //   $log.log(arguments);

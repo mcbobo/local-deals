@@ -1,1 +1,1 @@
-var app = angular.module('localDealsApp', ['ui.bootstrap']);
+var app = angular.module('localDealsApp', ['ui.bootstrap', 'ngCookies']);
