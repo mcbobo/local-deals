@@ -42,27 +42,7 @@
     </form>
 
     <div class="results">
-      <!-- TODO: Use the prodcut panels component -->
-      <!-- <product-panel products="products"></product-panel> -->
-      <div class="media panel panel-default" ng-repeat="product in products">
-        <div class="media-left media-middle">
-          <a href="#">
-            <img class="media-object" ng-src="{{ product.img }}">
-          </a>
-        </div>
-        <div class="media-body media-middle">
-          <h4 class="media-heading">{{ product.title }}</h4>
-          <p>
-            Price:
-            <span class="price">{{ product.price }}</span>
-            <span class="originalPrice">{{ product.originalPrice }}</span>
-          </p>
-          <div ng-bind-html="product.description | trust"></div>
-          <a href="{{ product.source.url }}">
-            {{ product.source.name }}
-          </a>
-        </div>
-      </div>
+      <product-panel products="products"></product-panel>
     </div>
 
     <!-- Libraries / Dependencies -->
@@ -79,7 +59,7 @@
     <script src="app/factories/products.js"></script>
 
     <!-- TODO: Use components after setting up webserver, right now has CORS errors -->
-    <!-- <script src="app/components/productPanel.js"></script> -->
+    <script src="app/components/productPanel.js"></script>
     <!-- <script src="app/components/categoriesDropDown.js"></script> -->
   </body>
 </html>

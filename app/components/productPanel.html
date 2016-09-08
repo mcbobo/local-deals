@@ -1,13 +1,17 @@
 <div class="media panel panel-default" ng-repeat="product in products">
   <div class="media-left media-middle">
     <a href="#">
-      <img class="media-object" ng-src="product.img">
+      <img class="media-object" ng-src="{{ product.img }}">
     </a>
   </div>
   <div class="media-body media-middle">
     <h4 class="media-heading">{{ product.title }}</h4>
-    <p>Price: <span class="price">{{ product.price }}</span></p>
-    {{ product.description }}
+    <p>
+      Price:
+      <span class="price">{{ product.price }}</span>
+      <span class="originalPrice">{{ product.originalPrice }}</span>
+    </p>
+    <div ng-bind-html="product.description | trust"></div>
     <a href="{{ product.source.url }}">
       {{ product.source.name }}
     </a>
